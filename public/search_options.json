@@ -1,4 +1,4 @@
 {
-  "myLibrary_options": ["Title", "Author", "Genre", "ISBN number", "Language"],
+  "myLibrary_options": ["Title", "Author", "Genre", "ISBN number"],
   "google_books_options": ["Title", "Author", "ISBN number"]
 }

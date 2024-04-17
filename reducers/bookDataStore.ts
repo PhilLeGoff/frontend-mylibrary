@@ -7,6 +7,7 @@ export interface IinitialState {
 
 const initialState: IinitialState = {
   bookData: {
+    bookId: "",
     title: "",
     authors: [""],
     genres: [""],
@@ -16,6 +17,7 @@ const initialState: IinitialState = {
     isbn: "",
     picture: "",
     description: "",
+    bookNumber: 1,
   },
 };
 
@@ -25,6 +27,10 @@ export const bookDataSlice = createSlice({
   reducers: {
     setBookData: (state, action) => {
       state.bookData = action.payload.bookData;
+      if (action.payload.bookNumber !== undefined) {
+        state.bookData.bookNumber = action.payload.bookNumber
+        state.bookData.bookId = action.payload.bookId;
+      }
     },
   },
 });

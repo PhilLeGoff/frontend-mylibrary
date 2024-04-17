@@ -5,7 +5,8 @@ type TQueryParams = {
 
 const makeQuery = ({ searchOption, searchInput }: TQueryParams) => {
   const option = searchOption === "" ? "Title" : searchOption;
-  const input = searchInput.replace(/ /g, "_");
+  // const input = searchInput.replace(/ /g, "_");
+  const input = searchInput;
   let queryKeyword = "";
 
   switch (option) {
@@ -68,7 +69,11 @@ export default async function fetchGoogleBookData({
       `/api/books?option=${searchQuery.queryKeyword}&input=${searchQuery.input}`
     );
     const data = await response.json();
-    const filteredData = await filterData(data.items);
+    let filteredData = [];
+    console.log("datafetched", data);
+    data.totalItems !== 0
+      ? (filteredData = await filterData(data.items))
+      : (filteredData = ["No books found"]);
     return filteredData;
   } catch (error) {
     console.error("Error fetching data:", error);

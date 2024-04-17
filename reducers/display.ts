@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface IinitialState {
   display: "books" | "authors" | "clients" | "loans";
-  booksDisplay: "searchForBook" | "addNewBook";
+  booksDisplay: "searchForBooks" | "addNewBook";
   modalDisplay: {
     type: "book" | "author" | "clients" | "loans";
     show: boolean;
@@ -26,8 +26,8 @@ export const displaySlice = createSlice({
       state.booksDisplay = action.payload.booksDisplay;
     },
     setShowModal: (state, action) => {
-      state.modalDisplay = action.payload
-    }
+      state.modalDisplay = action.payload;
+    },
   },
 });
 

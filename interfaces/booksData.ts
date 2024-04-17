@@ -1,4 +1,5 @@
 export interface BookData {
+  bookId: string;
   title: string;
   authors: string[];
   genres: string[];
@@ -8,4 +9,5 @@ export interface BookData {
   isbn: string;
   picture: string;
   description: string;
+  bookNumber: number;
 }

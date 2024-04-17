@@ -2,24 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IoCloseOutline } from "react-icons/io5";
 import { setShowModal } from "@/reducers/display";
+import addBookToLIbrary from "@/hooks/addBookToLibrary";
+import AddBookContent from "../BookContent";
+import fetchGoogleBookData from "@/hooks/fetchGoogleBookData";
+import { setBookData } from "@/reducers/bookDataStore";
+import SearchForBooks from "../SearchForBooks";
+import AddBookModalFooter from "./AddBookModalFooter";
+import BookSearchedModalFooter from "./BookSearchedModalFooter";
 
 type Props = {};
 
 export default function Modal({}: Props) {
-  const [copies, setCopies] = useState<number>(1);
-
   const dispatch = useDispatch();
 
+  const booksDisplay = useSelector(
+    (state: any) => state.libraryDisplays.booksDisplay
+  );
   const bookData = useSelector((state: any) => state.bookData.bookData);
-
-  useEffect(() => {
-    console.log("bookData", bookData);
-  }, [bookData]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    setCopies(parseInt(newValue));
-  };
 
   return (
     <div className="flex absolute inset-0 z-10 justify-center w-full bg-white bg-opacity-10 items-center h-full backdrop-blur-sm backdrop-brightness-50">
@@ -31,7 +30,7 @@ export default function Modal({}: Props) {
             onClick={() => dispatch(setShowModal(false))}
           />
           <h1 className="text-xl text-dark-grey">Book details</h1>
-          <div className="w-[30px] h-full"></div>
+          <div className="w-[30px] h-full flex items-center justify-center">{booksDisplay === "searchForBooks" && `N°${bookData.bookNumber}`}</div>
         </div>
         <div className="row-span-4 flex items-center justify-center ">
           <img
@@ -40,7 +39,7 @@ export default function Modal({}: Props) {
             src={bookData.picture}
             className="row-span-4 max-x-full mx-4 "
           />
-          <ul className="overflow-y-scroll w-full no-scrollbar flex-col items-around justify-between">
+          <ul className="h-full overflow-y-scroll w-full no-scrollbar flex-col items-around justify-between">
             <li className="overflow-y-scroll w-full">
               Title: {bookData.title}
             </li>
@@ -72,15 +71,11 @@ export default function Modal({}: Props) {
         <p className="row-span-3 p-2 m-2 border overflow-y-scroll no-scrollbar border-dark-grey flex justify-start items-start">
           Description: {bookData.description}
         </p>
-        <div className="row-span-2 px-4 flex justify-between items-center">
-          <div className="flex w-[200px]  h-full items-center">
-            <p>Number of copies:</p>
-            <input type="number" className="w-[40px] ml-2 outline-none" value={copies} onChange={(e) => handleInputChange(e)} />
-          </div>
-          <div className="h-[60px] w-[150px] border-2 border-dark-grey flex items-center justify-center ">
-            Add book
-          </div>
-        </div>
+        {booksDisplay === "addNewBook" ? (
+          <AddBookModalFooter bookData={bookData} />
+        ) : (
+          <BookSearchedModalFooter bookData={bookData} />
+        )}
       </div>
     </div>
   );

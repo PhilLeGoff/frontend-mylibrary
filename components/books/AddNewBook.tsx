@@ -65,7 +65,7 @@ export default function AddNewBook({}: Props) {
         </div>
         <div
           className="w-[220px] flex justify-center items-center text-center bg-bone-white rounded-md border-2 border-dark-grey hover:border-[3px] cursor-pointer text-dark-grey text-2xl "
-          onClick={() => handleDisplayChange("searchForBook")}
+          onClick={() => handleDisplayChange("searchForBooks")}
         >
           Search for a book in myLibrary
         </div>

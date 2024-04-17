@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import SearchForBooks from "./SearchForBooks";
 import AddNewBook from "./AddNewBook";
-import Modal from "./Modal";
+import Modal from "./results/Modal";
 
 type Props = {};
 
@@ -19,7 +19,7 @@ export default function BooksDisplay({}: Props) {
   };
   return (
     <div className="row-span-6 ">
-      {displayState.booksDisplay === "searchForBook" ? (
+      {displayState.booksDisplay === "searchForBooks" ? (
         <SearchForBooks />
       ) : (
         <AddNewBook />
