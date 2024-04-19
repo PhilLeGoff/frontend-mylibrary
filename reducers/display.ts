@@ -3,9 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface IinitialState {
   display: "books" | "authors" | "clients" | "loans";
   booksDisplay: "searchForBooks" | "addNewBook";
+  // loansDisplay: "searchForLoans" | "addNewLoan";
   modalDisplay: {
     type: "book" | "author" | "clients" | "loans";
     show: boolean;
+  };
+  loanModalDisplay: {
+    showLoanDetails: boolean;
+    showLoanBook: boolean;
   };
 }
 
@@ -13,6 +18,7 @@ const initialState: IinitialState = {
   display: "books",
   booksDisplay: "addNewBook",
   modalDisplay: { type: "book", show: false },
+  loanModalDisplay: { showLoanDetails: false, showLoanBook: false },
 };
 
 export const displaySlice = createSlice({

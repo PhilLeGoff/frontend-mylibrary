@@ -1,7 +1,26 @@
+import { BookData } from "@/interfaces/booksData";
+
 type TQueryParams = {
   searchOption: string;
   searchInput: string;
 };
+
+type Book = {
+  title: string;
+  authors: string[];
+  genres: string[];
+  publisher: string;
+  publishedDate: string;
+  language: string;
+  isbn: string;
+  picture: string;
+  description: string;
+  bookId: string | undefined;
+  bookNumber: number | undefined;
+  available: boolean | undefined;
+};
+
+type FilteredData = Book[] | "No books found";
 
 const makeQuery = ({ searchOption, searchInput }: TQueryParams) => {
   const option = searchOption === "" ? "Title" : searchOption;
@@ -25,7 +44,6 @@ const makeQuery = ({ searchOption, searchInput }: TQueryParams) => {
 
 const filterData = (data: any) => {
   let filteredData = data.map((item: any, i: number) => {
-    // console.log("in the map", i, item);
     const title = item.volumeInfo.title || "Unknown";
     const authors = item.volumeInfo.authors || ["Unknown"];
     const genres = item.volumeInfo.categories || ["Unknown"];
@@ -65,15 +83,18 @@ export default async function fetchGoogleBookData({
 }: TQueryParams) {
   const searchQuery = await makeQuery({ searchOption, searchInput });
   try {
+    console.log(
+      `/api/books?option=${searchQuery.queryKeyword}&input=${searchQuery.input}`
+    );
     const response = await fetch(
       `/api/books?option=${searchQuery.queryKeyword}&input=${searchQuery.input}`
     );
     const data = await response.json();
-    let filteredData = [];
+    let filteredData: FilteredData = [];
     console.log("datafetched", data);
     data.totalItems !== 0
       ? (filteredData = await filterData(data.items))
-      : (filteredData = ["No books found"]);
+      : (filteredData = "No books found");
     return filteredData;
   } catch (error) {
     console.error("Error fetching data:", error);

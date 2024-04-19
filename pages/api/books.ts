@@ -6,6 +6,7 @@ export default async function handler(
 ) {
   const { option, input } = req.query;
   const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+  console.log(option, input)
 
   try {
     const response = await fetch(

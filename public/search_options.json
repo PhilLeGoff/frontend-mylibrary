@@ -1,4 +1,6 @@
 {
-  "myLibrary_options": ["Title", "Author", "Genre", "ISBN number"],
-  "google_books_options": ["Title", "Author", "ISBN number"]
+  "myLibrary_options": ["Title", "Author", "Genre", "ISBN number", "Due"],
+  "google_books_options": ["Title", "Author", "ISBN number"],
+  "Client_search_options": ["Name", "Phone number"],
+  "Loans_search_options": ["Overdue", "Due"]
 }

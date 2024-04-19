@@ -18,6 +18,7 @@ const initialState: IinitialState = {
     picture: "",
     description: "",
     bookNumber: 1,
+    available: true,
   },
 };
 
@@ -30,10 +31,14 @@ export const bookDataSlice = createSlice({
       if (action.payload.bookNumber !== undefined) {
         state.bookData.bookNumber = action.payload.bookNumber
         state.bookData.bookId = action.payload.bookId;
+        state.bookData.available = action.payload.available;
       }
     },
+    setBookAvailable: (state) => {
+      state.bookData.available = !state.bookData.available
+    }
   },
 });
 
-export const { setBookData } = bookDataSlice.actions;
+export const { setBookData, setBookAvailable } = bookDataSlice.actions;
 export default bookDataSlice.reducer;

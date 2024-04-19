@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import SearchOptions from "./input/SearchOptions";
+import React, { useEffect, useState } from "react";
+import SearchOptions from "../input/SearchOptions";
 import search_options from "@/public/search_options.json";
-import Input from "./input/Input";
+import Input from "../input/Input";
 import { IoSearch } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { setBooksDisplay } from "@/reducers/display";
@@ -14,7 +14,9 @@ type Props = {};
 export default function SearchForBooks({}: Props) {
   const [inputValue, setInputValue] = useState<string>("");
   const [searchOption, setSearchOption] = useState<string>("");
-  const [fetchedData, setFetchedData] = useState<BookData[]>([]);
+  const [fetchedData, setFetchedData] = useState<BookData[] | "No books found">(
+    []
+  );
 
   const dispatch = useDispatch();
 
@@ -27,9 +29,28 @@ export default function SearchForBooks({}: Props) {
       searchOption: searchOption,
       searchInput: inputValue,
     });
-
+    console.log("fetched data", fetchedData);
     setFetchedData(booksFound);
   };
+
+  useEffect(() => {
+    if (inputValue) {
+      const timer = setTimeout(async () => {
+        const booksFound = await fetchBooksFromDB({
+          searchOption: searchOption,
+          searchInput: inputValue,
+        });
+        console.log("fetched data", fetchedData);
+        setFetchedData(booksFound);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
+    if (searchOption === "Due") setInputValue("All");
+  }, [searchOption]);
 
   return (
     <div className="bg-bone h-full w-full">
@@ -56,10 +77,10 @@ export default function SearchForBooks({}: Props) {
           </div>
         </div>
         <div
-          className="w-[220px] flex justify-center items-center text-center bg-bone-white rounded-md border-2 border-dark-grey hover:border-[3px] cursor-pointer text-dark-grey text-2xl "
+          className="w-[220px] h-[45px] flex justify-center items-center text-center bg-bone-white rounded-md border-2 border-dark-grey hover:border-[3px] cursor-pointer text-dark-grey text-md "
           onClick={() => handleDisplayChange("addNewBook")}
         >
-          Add a book to myLibrary
+          Add to myLibrary
         </div>
       </div>
       <DisplayResults booksData={fetchedData} />

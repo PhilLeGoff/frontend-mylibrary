@@ -18,7 +18,7 @@ export default function BooksDisplay({}: Props) {
     else return null;
   };
   return (
-    <div className="row-span-6 ">
+    <div className="row-span-6">
       {displayState.booksDisplay === "searchForBooks" ? (
         <SearchForBooks />
       ) : (

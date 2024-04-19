@@ -3,41 +3,58 @@ import { BookData } from "@/interfaces/booksData";
 import React from "react";
 import { setShowModal } from "@/reducers/display";
 import { useDispatch } from "react-redux";
+import deleteLoanFromDB from "@/hooks/deleteLoanFromDB";
+import { setBookAvailable } from "@/reducers/bookDataStore";
 
-type Props = { bookData: BookData };
+type Props = {
+  bookData: BookData;
+  setShowLoanModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export default function BookSearchedModalFooter({ bookData }: Props) {
+export default function BookSearchedModalFooter({
+  bookData,
+  setShowLoanModal,
+}: Props) {
   const dispatch = useDispatch();
 
   const handleDeleteBook = async () => {
-    const bookDeleted = await deleteBookFromLibrary(bookData.bookId);
-    bookDeleted !== "Error deleting book:" &&
-      dispatch(setShowModal({ type: "book", show: false }));
+    try {
+      const bookDeleted = await deleteBookFromLibrary(bookData.bookId);
+      if (bookDeleted !== "Error deleting book:") {
+        dispatch(setShowModal({ type: "book", show: false }));
+      }
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
   };
+
+  const handleReturnBook = async () => {
+    try {
+      const updatedBook = await deleteLoanFromDB(bookData.bookId);
+      if (updatedBook.success) {
+        dispatch(setBookAvailable());
+      }
+    } catch (error) {
+      console.error("Error returning book:", error);
+    }
+  };
+
   return (
     <div className="row-span-2 px-4 flex justify-between items-center">
-      <div className="flex w-[200px]  h-full items-center">
-        <p>Books available: ?</p>
-        {/* <input
-          type="number"
-          className="w-[40px] ml-2 outline-none"
-          value={copies}
-          onChange={(e) => handleInputChange(e)}
-        /> */}
-      </div>
-      <div className="w-[320px] flex justify-between">
+      {bookData.available ? (
         <div
-          className="h-[60px] w-[150px] border-2 cursor-pointer border-dark-grey flex items-center justify-center "
-          onClick={() => null}
+          className="cursor-pointer border-2 border-dark-grey p-4 rounded-sm shadow-lg hover:shadow-xl"
+          onClick={() => setShowLoanModal(true)}
         >
           LOAN BOOK
         </div>
-        <div
-          className="h-[60px] w-[150px] border-2 cursor-pointer border-dark-grey flex items-center justify-center "
-          onClick={() => handleDeleteBook()}
-        >
-          DELETE BOOK
+      ) : (
+        <div className="cursor-pointer border-2 border-dark-grey p-4 rounded-sm shadow-lg hover:shadow-xl" onClick={handleReturnBook}>
+          RETURN BOOK
         </div>
+      )}
+      <div className="cursor-pointer border-2 border-dark-grey p-4 rounded-sm shadow-lg hover:shadow-xl" onClick={handleDeleteBook}>
+        DELETE BOOK
       </div>
     </div>
   );

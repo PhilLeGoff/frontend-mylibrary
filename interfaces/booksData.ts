@@ -1,5 +1,5 @@
 export interface BookData {
-  bookId: string;
+  bookId: string | undefined;
   title: string;
   authors: string[];
   genres: string[];
@@ -9,5 +9,6 @@ export interface BookData {
   isbn: string;
   picture: string;
   description: string;
-  bookNumber: number;
+  bookNumber: number | undefined;
+  available: boolean | undefined;
 }

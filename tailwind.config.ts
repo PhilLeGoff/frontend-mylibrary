@@ -21,6 +21,19 @@ const config: Config = {
       fontFamily: {
         custom: ['"Kaisei Opti"', "serif"],
       },
+      boxShadow: {
+        "book-action-btn": "0 4px 6px rgba(0, 0, 0, 0.1)",
+      },
+      borderWidth: {
+        "book-action-btn": "2px",
+      },
+      borderColor: {
+        "book-action-btn": "#515151",
+      },
+      cursor: {
+        "book-action-btn": "pointer",
+      },
+      
     },
   },
   plugins: [],
