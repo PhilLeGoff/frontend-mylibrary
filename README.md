@@ -1,36 +1,26 @@
 # myLibrary
 
-myLibrary is a resource management system designed specifically for libraries. It provides a user-friendly interface to manage library resources, including books, loans, and clients. With myLibrary, you can efficiently add, search, and manage library resources, making it easier to organize and track items within your library.
+myLibrary is a web application designed to manage library resources. It allows users to add books to the database by searching using the Google Books API. Once added, users can perform various actions such as loaning, returning, or deleting books from the myLibrary database.
+
+## Preview
+
+Please note that this project is not finished, not operational, and serves as a preview of potential future features. It also showcases full-stack development skills.
 
 ## Features
 
-- **Add Books:** Easily add new books to the library database by providing information such as author, title, or ISBN number.
-- **Search Books:** Utilize the Google Books API for seamless searching of books based on various criteria like author, title, or ISBN number. Alternatively, manually input book information.
-- **Manage Loans:** Keep track of loans by managing loan durations, due dates, and client information.
-- **Manage Clients:** Maintain a database of clients with details such as names, contact information, and borrowing history.
+- **Add Books:** Search for books using the Google Books API and add them to the database. Search by title, author, or ISBN number.
+- **Manage Books:** Perform actions such as loaning, returning, or deleting books from the myLibrary database.
+- **Search Books:** Look for books in the database using title, author name, genre, ISBN number, or by books that are due.
+- **Register Clients:** Register clients using their full name and phone number. Search clients in the client component to view their loaned books and books they need to return.
 
 ## Usage
 
-### Adding Books:
-
-1. Click on the "Add Book" button.
-2. Enter the book's details, including author, title, and ISBN number.
-3. Submit the information to add the book to the library database.
-
-### Searching Books:
-
-- Utilize the search feature to find books based on author, title, or ISBN number.
-- Alternatively, use the Google Books API integration for enhanced searching capabilities.
-
-### Managing Loans:
-
-- Navigate to the loans section to view and manage loaned items.
-- Keep track of loan durations, due dates, and client information.
-
-### Managing Clients:
-
-- Maintain a database of clients by adding, editing, or removing client entries.
-- Track client borrowing history and contact information.
+1. Search for a book by title, author, or ISBN number using the search feature.
+2. Once found, add the book to the database.
+3. Use the book management section to loan, return, or delete books.
+4. Search for books in the database by various criteria such as title, author name, genre, ISBN number, or books that are due.
+5. Register clients using their full name and phone number.
+6. Search for clients in the client component to view their loaned books and books they need to return.
 
 ## Installation
 
@@ -39,8 +29,6 @@ To run myLibrary locally:
 1. Clone this repository to your local machine.
 2. Navigate to the project directory.
 3. Install dependencies using npm or yarn.
-
-
 
 ```bash
 npm install
